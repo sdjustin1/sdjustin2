@@ -1,0 +1,24 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  FuselessTemplate:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: com.foundeo.fuseless.StreamLambdaHandler
+      CodeUri: ./build/distributions/fuseless-template.zip
+      Runtime: java11
+      Timeout: 20
+      MemorySize: 1856
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: any
+      Environment:
+        Variables:
+          FELIX_CACHE_BUFSIZE: 16384
+
+
+
