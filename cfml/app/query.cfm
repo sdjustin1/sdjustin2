@@ -1,5 +1,5 @@
 <cfquery name="qTestQuery" datasource="pgjdbc">
-    SELECT *
+    SELECT personname
     FROM person                         
 </cfquery> 
 
