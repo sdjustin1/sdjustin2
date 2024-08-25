@@ -1,49 +1,5 @@
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<!--- 	<cfset cypher = {
-		a = "m",
-		b = "d",
-		c = "f",
-		d = "b",
-		e = "l",
-		f = "u",
-		g = "i",
-		h = "k",
-		i = "z",
-		j = "n",
-		k = "a",
-		l = "j",
-		m = "o",
-		n = "h",
-		o = "g",
-		p = "e",
-		q = "x",
-		r = "s",
-		s = "w",
-		t = "v",
-		u = "q",
-		v = "c",
-		w = "y",
-		x = "p",
-		y = "t",
-		z = "r"
-		} />
-	<cfset input = "dear marie, this is fun! I am glad I get to participate! love daddy">
-	<cfset output = "">
-	<cfloop index="i" from="1" to="#len(input)#">
-		<cfset letter = mid(input,i,1)>
-		<cfif letter eq " ">
-			<cfset output = output & " ">
-		<cfelse>
-			<cfif StructKeyExists(cypher,letter)>
-				<cfset output = output & cypher[letter]>
-			<cfelse>
-				<cfset output = output & letter>
-			</cfif>
-		</cfif>
-	</cfloop> --->
-	<!--- <cfoutput>#output#</cfoutput><br /> --->
-
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	    <title>sdjustin.com</title>
