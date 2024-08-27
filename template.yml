@@ -23,6 +23,9 @@ Resources:
       Environment:
         Variables:
           FELIX_CACHE_BUFSIZE: 16384
+          DB_USERNAME: '{{resolve:ssm:/cfml/databaseusername:1}}'
+          DB_PASSWORD: '{{resolve:ssm:/cfml/databasepassword:1}}'
+          DB_CONNECTION_STRING: '{{resolve:ssm:/cfml/databaseconnectionstring:1}}'             
       VpcConfig:
         SecurityGroupIds: 
           - sg-073c14c9d92e278d7
