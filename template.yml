@@ -28,12 +28,11 @@ Resources:
           DB_CONNECTION_STRING: '{{resolve:ssm:/cfml/databaseconnectionstring:1}}'             
       VpcConfig:
         SecurityGroupIds: 
-          - sg-073c14c9d92e278d7
+          - '{{resolve:ssm:/cfml/securitygroupid:1}}'
         SubnetIds: 
-          - subnet-003156b3b06f96f01
-          - subnet-0e8d0add7366a5959
-          - subnet-051ac5247714dffed
-    
+          - '{{resolve:ssm:/cfml/subnetid1:1}}'
+          - '{{resolve:ssm:/cfml/subnetid2:1}}'
+          - '{{resolve:ssm:/cfml/subnetid3:1}}'
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
