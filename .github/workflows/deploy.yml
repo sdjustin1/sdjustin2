@@ -30,6 +30,5 @@ jobs:
           aws-region: us-east-2
       - name: deploy
         run: |
-            sam --version
             ./deploy.sh
           
