@@ -15,13 +15,13 @@ TXT
 
 # gradle -v   (optional) 
 
-git clone https://github.com/sdjustin1/fuseless.git
+# git clone https://github.com/sdjustin1/fuseless.git
 # -------------------- break point #1
-cd fuseless
+# cd fuseless
 
-./test.sh
+# ./test.sh
 # -------------------- break point #2
-cd ..
+# cd ..
 
 git clone https://github.com/sdjustin1/sdjustin2.git
 # -------------------- break point #3
