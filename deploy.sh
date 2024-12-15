@@ -1,6 +1,7 @@
 # sudo yum -y remove java-17-amazon-corretto*
+java -version
 sudo yum install -y https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.rpm
-
+java -version
 wget https://services.gradle.org/distributions/gradle-6.5-bin.zip -P /tmp
 
 sudo unzip -d /opt/gradle /tmp/gradle-6.5-bin.zip
