@@ -1,63 +1,70 @@
-component {
+<cfcomponent>
+	<cfset this.name="cfmlServerless">
+    <cfset this.sessionmanagement="false">
+    <cfset this.clientManagement="false">
+    <cfset this.setClientCookies="false">
+    <cfset this.applicationTimeout = CreateTimeSpan(10, 0, 0, 0)> <!--- 10 days --->
 
-	this.name="cfmlServerless";
-	this.applicationTimeout = CreateTimeSpan(10, 0, 0, 0); //10 days
-	this.sessionManagement=false;
-	this.clientManagement=false;
-	this.setClientCookies=false;
-	
-	public function onRequest(string path) {
-		setting enablecfoutputonly="true" requesttimeout="180" showdebugoutput="true";
-		application.counter++;
-		include listLast(arguments.path,'/');
-	}
+    <cffunction name="onRequest" access="public" returntype="void" hint="I handle the request">
+        <cfargument name="path" type="string" required="true" />
+        <cfsetting enablecfoutputonly="true" requesttimeout="180" showdebugoutput="true" />
+        <cfset application.counter++ />
+        <cfinclude template="#listLast(arguments.path,'/')#" />
+    </cffunction>
+    
+    <cfset this.datasources["pgjdbc"] = {
+        class = 'org.postgresql.Driver',
+        connectionString = 'jdbc:postgresql://' & server.system.environment.DB_CONNECTION_STRING,
+        username = server.system.environment.DB_USERNAME,
+        password = server.system.environment.DB_PASSWORD
+    }>
 
-	this.datasources["pgjdbc"] = {
-		class: 'org.postgresql.Driver'
-		, connectionString: 'jdbc:postgresql://' & server.system.environment.DB_CONNECTION_STRING
-		, username: server.system.environment.DB_USERNAME
-		, password: server.system.environment.DB_PASSWORD
-	}
+    <cfset this.defaultDatasource = "pgjdbc">
 
-	this.defaultdatasource = "pgjdbc"
+    <cffunction name="onApplicationStart" returntype="boolean">
+        <cfset application.counter = 0>
+        <cfset application.resultsArray = arrayNew(1)>
+        <cfreturn true>
+    </cffunction>       
 
-	function onApplicationStart() {
-		application.counter = 0;
-		application.resultsArray = [];
-		return true;
-	}
+    <cffunction name="getCounter" returntype="any">
+        <cfreturn application.counter>
+    </cffunction>
 
-	function getCounter() {
-		return application.counter;
-	}
+    <cffunction name="getLambdaContext" returntype="any" access="public">
+        <!--- see https://docs.aws.amazon.com/lambda/latest/dg/java-context-object.html --->
+        <cfreturn getPageContext().getRequest().getAttribute("lambdaContext") />
+    </cffunction>
 
-	public function getLambdaContext() {
-		//see https://docs.aws.amazon.com/lambda/latest/dg/java-context-object.html
-		return getPageContext().getRequest().getAttribute("lambdaContext");
-	}
+    <cffunction name="logger" returntype="void" access="public">
+        <cfargument name="msg" type="string" required="true" />
+        <cfset getLambdaContext().getLogger().log(arguments.msg) />
+    </cffunction>    
 
-	public void function logger(string msg) {
-		getLambdaContext().getLogger().log(arguments.msg);
-	}
+    <cffunction name="getRequestID" returntype="string" access="public">
+        <cfif isNull(getLambdaContext())>
+            <!--- Not running in Lambda --->
+            <cfif not request.keyExists("_request_id")>
+                <cfset request._request_id = createUUID()>
+            </cfif>
+            <cfreturn request._request_id>
+        <cfelse>
+            <cfreturn getLambdaContext().getAwsRequestId()>
+        </cfif>
+    </cffunction>
 
-	public string function getRequestID() {
-		if (isNull(getLambdaContext())) {
-			//not running in lambda
-			if (!request.keyExists("_request_id")) {
-				request._request_id = createUUID();
-			}
-			return request._request_id;
-		} else {
-			return getLambdaContext().getAwsRequestId();
-		}
-	}
+    <cffunction name="OnMissingTemplate" output="true">
+        <cfargument name="targetPage" type="string">
+        <cfinclude template="404.cfm">
+        <cfreturn true>
+    </cffunction>
 
-	function onMissingTemplate(){
-		include '404.cfm';
-	}
+    <cffunction name="onError" returntype="void" access="public">
+        <cfargument name="Exception" type="any" required="true" />
+        <cfargument name="EventName" type="string" required="true" />
+        <cfoutput>Some error has occured</cfoutput>
+        <cfabort />
+    </cffunction>
+</cfcomponent>
 
-	function onError( any Exception, string EventName ) {
-		writeOutput("Some error has occured");
-		abort;
-	}
-}
+
