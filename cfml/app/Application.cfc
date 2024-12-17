@@ -12,14 +12,22 @@
         <cfinclude template="#listLast(arguments.path,'/')#" />
     </cffunction>
     
-    <cfset this.datasources["pgjdbc"] = {
-        class = 'org.postgresql.Driver',
-        connectionString = 'jdbc:postgresql://' & server.system.environment.DB_CONNECTION_STRING,
-        username = server.system.environment.DB_USERNAME,
-        password = server.system.environment.DB_PASSWORD
-    }>
+    <cffunction name="onRequestStart" access="public" returntype="void">
+        <cfif cgi.SERVER_NAME neq 'localhost'>
+            <cfset this.datasources["pgjdbc"] = {
+                class = 'org.postgresql.Driver',
+                connectionString = 'jdbc:postgresql://' & server.system.environment.DB_CONNECTION_STRING,
+                username = server.system.environment.DB_USERNAME,
+                password = server.system.environment.DB_PASSWORD
+            }>
 
-    <cfset this.defaultDatasource = "pgjdbc">
+            <cfset this.defaultDatasource = "pgjdbc">
+
+            <cfset application.imageprefix = "https://sdjustintestbucket.s3.us-east-2.amazonaws.com/">
+        <cfelse>
+            <cfset application.imageprefix = "/sdjustin2/images/">
+        </cfif>
+    </cffunction>       
 
     <cffunction name="onApplicationStart" returntype="boolean">
         <cfset application.counter = 0>
