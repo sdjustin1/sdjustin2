@@ -23,6 +23,7 @@
             }> --->
 
             <cfset this.datasources["pgjdbc"] = {
+                class = 'org.postgresql.Driver',
                 database = "jdb5", 
                 host = "db5-instance-1.cnuyg6kg8zqc.us-east-2.rds.amazonaws.com", 
                 port = "5432", 
