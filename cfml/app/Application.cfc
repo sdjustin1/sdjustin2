@@ -14,12 +14,22 @@
     
     <cffunction name="onRequestStart" access="public" returntype="void">
         <cfif cgi.SERVER_NAME neq 'localhost'>
+<!--- 
             <cfset this.datasources["pgjdbc"] = {
                 class = 'org.postgresql.Driver',
                 connectionString = 'jdbc:postgresql://' & server.system.environment.DB_CONNECTION_STRING,
                 username = server.system.environment.DB_USERNAME,
                 password = server.system.environment.DB_PASSWORD
-            }>
+            }> --->
+
+            <cfset this.datasources["pgjdbc"] = {
+                database = "jdb5", 
+                host = "db5-instance-1.cnuyg6kg8zqc.us-east-2.rds.amazonaws.com", 
+                port = "5432", 
+                type = "postgresql", 
+                username = server.system.environment.DB_USERNAME, 
+                password = server.system.environment.DB_PASSWORD
+            }> 
 
             <cfset this.defaultDatasource = "pgjdbc">
 
