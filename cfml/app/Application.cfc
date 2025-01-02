@@ -24,10 +24,10 @@
 
             <cfset this.datasources["pgjdbc"] = {
                 class = 'org.postgresql.Driver',
-                // database = "jdb5", 
+                database = "jdb5", 
                 host = "db5-instance-1.cnuyg6kg8zqc.us-east-2.rds.amazonaws.com/jdb5", 
                 port = "5432", 
-                // type = "postgresql", 
+                type = "postgresql", 
                 username = server.system.environment.DB_USERNAME, 
                 password = server.system.environment.DB_PASSWORD
             }> 
