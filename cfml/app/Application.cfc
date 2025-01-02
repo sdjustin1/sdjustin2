@@ -2,7 +2,7 @@
 	<cfset this.name="cfmlServerless">
     <cfset this.sessionmanagement="false">
     <cfset this.clientManagement="false">
-    <cfset this.setClientCookies="false">
+    <cfset this.setClientCookies="true">
     <cfset this.applicationTimeout = CreateTimeSpan(10, 0, 0, 0)> <!--- 10 days --->
 
     <cffunction name="onApplicationStart" returntype="boolean">
@@ -25,7 +25,7 @@
                 class = 'org.postgresql.Driver',
                 connectionString = 'jdbc:postgresql://' 
                     & server.system.environment.DB_CONNECTION_STRING,
-                    
+
                 username = server.system.environment.DB_USERNAME,
                 password = server.system.environment.DB_PASSWORD
             }>
