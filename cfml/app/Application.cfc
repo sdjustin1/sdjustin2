@@ -5,6 +5,12 @@
     <cfset this.setClientCookies="false">
     <cfset this.applicationTimeout = CreateTimeSpan(10, 0, 0, 0)> <!--- 10 days --->
 
+    <cffunction name="onApplicationStart" returntype="boolean">
+        <cfset application.counter = 0>
+        <cfset application.resultsArray = arrayNew(1)>
+        <cfreturn true>
+    </cffunction>   
+
     <cffunction name="onRequest" access="public" returntype="void" hint="I handle the request">
         <cfargument name="path" type="string" required="true" />
         <cfsetting enablecfoutputonly="true" requesttimeout="180" showdebugoutput="true" />
@@ -17,20 +23,12 @@
 
             <cfset this.datasources["pgjdbc"] = {
                 class = 'org.postgresql.Driver',
-                connectionString = 'jdbc:postgresql://' & server.system.environment.DB_CONNECTION_STRING,
+                connectionString = 'jdbc:postgresql://' 
+                    & server.system.environment.DB_CONNECTION_STRING,
+                    
                 username = server.system.environment.DB_USERNAME,
                 password = server.system.environment.DB_PASSWORD
             }>
-
-<!---             <cfset this.datasources["pgjdbc"] = {
-                // class = 'org.postgresql.Driver',
-                database = "jdb5", 
-                host = "db5-instance-1.cnuyg6kg8zqc.us-east-2.rds.amazonaws.com/jdb5", 
-                port = "5432", 
-                type = "postgresql", 
-                username = server.system.environment.DB_USERNAME, 
-                password = server.system.environment.DB_PASSWORD
-            }>  --->
 
             <cfset this.defaultDatasource = "pgjdbc">
 
@@ -41,11 +39,6 @@
         </cfif>
     </cffunction>       
 
-    <cffunction name="onApplicationStart" returntype="boolean">
-        <cfset application.counter = 0>
-        <cfset application.resultsArray = arrayNew(1)>
-        <cfreturn true>
-    </cffunction>       
 
     <cffunction name="getCounter" returntype="any">
         <cfreturn application.counter>
