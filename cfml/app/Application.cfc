@@ -4,6 +4,7 @@
     <cfset this.clientManagement="false">
     <cfset this.setClientCookies="true">
     <cfset this.applicationTimeout = CreateTimeSpan(10, 0, 0, 0)> <!--- 10 days --->
+    <cfset application.cookieName = "__ga_tracking_beacon_";>
 
     <cffunction name="onApplicationStart" returntype="boolean">
         <cfset application.counter = 0>
