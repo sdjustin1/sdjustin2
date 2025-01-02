@@ -78,13 +78,13 @@
         <cfinclude template="404.cfm">
         <cfreturn true>
     </cffunction>
-
+<!--- 
     <cffunction name="onError" returntype="void" access="public">
         <cfargument name="Exception" type="any" required="true" />
         <cfargument name="EventName" type="string" required="true" />
         <cfoutput>Some error has occured</cfoutput>
         <cfabort />
-    </cffunction>
+    </cffunction> --->
 </cfcomponent>
 
 

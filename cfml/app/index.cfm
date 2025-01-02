@@ -1,4 +1,3 @@
-<cfsetting enablecfoutputonly="true">
 <cfoutput><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -6,7 +5,7 @@
 	    <title>sdjustin.com</title>
 	</head>
 
-	<body bgcolor="green">
+	<body bgcolor="blue">
 		<h2 align=center>Coming Soon!</h1>
 		<div align=center>#now()#</div>
 
