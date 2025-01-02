@@ -16,3 +16,4 @@
 		</div>
 	</body>
 </html></cfoutput>
+<cfdump var="#application#">
