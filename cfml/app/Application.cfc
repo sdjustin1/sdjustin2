@@ -1,6 +1,6 @@
 <cfcomponent>
 	<cfset this.name="cfmlServerless">
-    <cfset this.sessionmanagement="false">
+    <cfset this.sessionmanagement="true">
     <cfset this.clientManagement="false">
     <cfset this.setClientCookies="true">
     <cfset this.applicationTimeout = CreateTimeSpan(10, 0, 0, 0)> <!--- 10 days --->
